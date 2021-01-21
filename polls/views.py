@@ -29,15 +29,15 @@ def detail(request, question_id):
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     choices = question.choice_set.all()
-    choice_text_list = []
-    choice_vote_list = []
+    choice_list = []
     for choice in choices:
-        choice_text_list.append(choice.choice_text)
-        choice_vote_list.append(choice.votes)
+        choice_list.append([choice.choice_text, choice.votes])
+        #choice_vote_list.append(choice.votes)
     context = {
         'question_text': question.question_text,
-        'choice_text_list': choice_text_list,
-        'choice_vote_list': choice_vote_list,
+        'choice_list': choice_list,
+        #'choice_text_list': choice_text_list,
+        #'choice_vote_list': choice_vote_list,
     }
 
     return render(request, 'polls/results.html', context)
