@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+app_name = 'polls'
 urlpatterns = [
     path('', views.index, name='index'),
     #Arguments inside brackets should be the same as the expected argument in the method in the second argument of path
