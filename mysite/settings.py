@@ -25,13 +25,16 @@ SECRET_KEY = '(*ltix*v@3n0&sd+*$r^^208h5$e#dwr=sl@c8stermfy8cswb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+AUTH_USER_MODEL = "polls.Person"
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
+    'polls',
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,7 +86,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.postgresql',
     #     'NAME': 'postgres',
     #     'USER': 'amaghous',
-    #     'PASSWORD': 'amaghous',
+    #     'PASSWORD': 'aminemagaus',
     #     'HOST': '127.0.0.1',
     #     'PORT': '5432',
     # }
