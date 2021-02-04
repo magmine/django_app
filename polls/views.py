@@ -57,7 +57,7 @@ class SignupForm(UserCreationForm):
         fields = ['username', 'phone_number']
 
     def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
+        user = super(SignupForm, self).save(commit=False)
         user.set_password(user.password) # set password properly before commit
         if commit:
             user.save()
@@ -68,7 +68,7 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy('polls:login')
     template_name = 'registration/signup.html'
 
-#@login_required
+@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
