@@ -58,7 +58,11 @@ class SignupForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
-        user.set_password(user.password) # set password properly before commit
+        #user.set_password(user.password) # set password properly before commit
+        '''
+        The "set_password" method does not properly work with "super(SignupForm, self).save(commit=False)" and the later already hashes the users passwd "set_password" was introduced
+        so that we do the hash, so either the doc I used was deprecated or something else.
+        '''
         if commit:
             user.save()
         return user
@@ -90,13 +94,13 @@ def user_login(request): # each request is related to it's own user
             password = request.POST['password']
             if Person.objects.filter(username=username).exists():
                 user = Person.objects.get(username=username)
-                if user.check_password(password):
-                    user = auth.authenticate(username=username, password=password)
-                    if user is not None:
-                        auth.login(request, user)
-                        return redirect('home')
-                else:
-                    print("Password check failed")
+            if user.check_password(password):
+                user = auth.authenticate(username=username, password=password)
+                if user is not None:
+                    auth.login(request, user)
+                    return redirect('home')
+            # else:
+            #     print("Password check failed")
             else:
                 return redirect('polls:login')
         except Exception as problem:
